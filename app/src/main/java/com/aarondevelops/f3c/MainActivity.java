@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import chargeLocations.ChargePoint;
+import charge_points.ChargePoint;
 
 public class MainActivity extends AppCompatActivity {
 

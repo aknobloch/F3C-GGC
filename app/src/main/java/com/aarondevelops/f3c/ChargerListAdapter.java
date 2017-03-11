@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
-import chargeLocations.ChargePoint;
+import charge_points.ChargePoint;
 
 /**
  * Created by Aaron K on 3/11/2017.
