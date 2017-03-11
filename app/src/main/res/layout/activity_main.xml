@@ -36,6 +36,7 @@
         app:srcCompat="@drawable/refresh_icon"
         app:backgroundTint="@color/themeColor"
         app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="bottom|right" />
+        app:layout_anchorGravity="bottom|right"
+        android:onClick="onRefresh" />
 
 </android.support.design.widget.CoordinatorLayout>

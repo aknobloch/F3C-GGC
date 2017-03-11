@@ -1,17 +1,27 @@
 package com.aarondevelops.f3c;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final String DEBUG_TAG = "F3CDebug";
+
     ListView chargerList;
+    ChargerListAdapter listAdapter;
+    ArrayList<String> words = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +32,15 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                words.add("Hello!");
+                listAdapter.notifyDataSetChanged();
             }
         });
 
         chargerList = (ListView) findViewById(R.id.displayList);
+        listAdapter = new ChargerListAdapter(this, R.layout.list_display_layout, R.id.defaultTextView, words);
+        chargerList.setAdapter(listAdapter);
+
     }
 
     @Override
@@ -51,4 +64,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
