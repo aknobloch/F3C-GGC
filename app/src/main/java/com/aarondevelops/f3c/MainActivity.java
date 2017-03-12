@@ -71,25 +71,39 @@ public class MainActivity extends AppCompatActivity
         };
 
         /***
-         * First clears the current chargerStations. Then, iterates through the stationURLs field,
-         * polling each one and parsing the JSON response into POJOs. Using this object,
-         * it then creates a ChargerStation and adds them to the MainActivity chargerStations.
+         * Attempts to populate the chargerStations list by fetching data from the stationURLs
          */
         @Override
         protected Void doInBackground(Void... params) {
 
-            chargerStations.clear();
+            ArrayList<ChargerStation> updatedList = getChargeStationList();
+
+            if(updatedList.size() != 0)
+            {
+                chargerStations.clear();
+                chargerStations.addAll(updatedList);
+            }
+
+            return null;
+        }
+
+        /***
+         * Gets an updated charge station list. If an error occurs while trying to poll the
+         * database, an empty list will be returned.
+         *
+         * @return - A list of all the stations found, or an empty list if an error occurred or no
+         * stations were found.
+         */
+        private ArrayList<ChargerStation> getChargeStationList()
+        {
+            ArrayList<ChargerStation> newList = new ArrayList<>();
 
             try
             {
-                Gson parser = new Gson();
-
                 for(String stationURL : stationURLs)
                 {
-                    String response = HttpHelper.downloadUrl(stationURL);
-                    ChargePoint stationPoint = parser.fromJson(response, ChargePoint.class);
-                    ChargerStation station = new ChargerStation(stationPoint);
-                    chargerStations.add(station);
+                    ChargerStation station = getStation(stationURL);
+                    newList.add(station);
                 }
 
             } catch (IOException e)
@@ -97,8 +111,27 @@ public class MainActivity extends AppCompatActivity
                 Toast errorToast = Toast.makeText(
                         getApplicationContext(), "Error Connecting to Database.", Toast.LENGTH_SHORT);
                 errorToast.show();
+
+                // clear the list just in case of partial success
+                newList.clear();
+                return newList;
             }
-            return null;
+
+            return newList;
+        }
+
+        /***
+         * Gets the station associated with the given URL
+         * @param stationURL - The URL to poll for charger stations
+         * @return - The ChargerStation representing the JSON response from the server.
+         * @throws IOException - If the server does not respond.
+         */
+        private ChargerStation getStation(String stationURL) throws IOException
+        {
+            Gson parser = new Gson();
+            String response = HttpHelper.downloadUrl(stationURL);
+            ChargePoint stationPoint = parser.fromJson(response, ChargePoint.class);
+            return new ChargerStation(stationPoint);
         }
 
         @Override
