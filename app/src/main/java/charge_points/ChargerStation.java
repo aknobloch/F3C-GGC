@@ -40,6 +40,11 @@ public class ChargerStation
         setDescription();
     }
 
+    public String getDescription()
+    {
+        return this.description;
+    }
+
     public ChargePoint getChargePoint()
     {
         return this.rootPoint;
