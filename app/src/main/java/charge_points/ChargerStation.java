@@ -10,6 +10,11 @@ import java.util.List;
  * Created by Aaron K on 3/12/2017.
  */
 
+/***
+ * The ChargerStation is an encapsulation of relevant information
+ * for a given ChargePoint. It contains a human-readable nickname and location
+ * as well as other pertinent information for the charging station.
+ */
 public class ChargerStation
 {
     private ChargePoint rootPoint;
