@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // prepare the speaker for the list
+        MessageHelper.initializeSpeaker(this);
+
+        // define FAB functionality
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity
         // creates listener for the list
         defineListAction();
 
+        // do first fetch
+        fetchData();
     }
 
     /***

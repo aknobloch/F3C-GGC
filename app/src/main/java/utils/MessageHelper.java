@@ -23,6 +23,7 @@ public class MessageHelper
 
     private static TextToSpeech speaker = null;
     private static final String SPEAKER_ID = "MessageHelperAlert";
+    private static boolean speakerInitialized = false;
 
     /***
      * Creates a toast with the given message and displays it in the context
@@ -35,6 +36,7 @@ public class MessageHelper
                 context,
                 message,
                 Toast.LENGTH_SHORT);
+
         errorToast.show();
     }
 
@@ -56,42 +58,50 @@ public class MessageHelper
      */
     public static void speakMessage(Context context, String message)
     {
-        if(speaker == null)
+        if( ! speakerInitialized)
         {
-            initializeSpeaker(context, message);
+            toastAlert(context, "Speaker not ready.");
+            return;
         }
-        else
-        {
-            speaker.speak(message, TextToSpeech.QUEUE_FLUSH, null, SPEAKER_ID);
-        }
+
+        speaker.speak(message, TextToSpeech.QUEUE_FLUSH, null, SPEAKER_ID);
     }
 
     /***
-     * Initializes the speaker, and reads the given message once it is ready.
+     * Initializes the speaker.
      * @param context - The context this method was called from.
-     * @param message - The message to read aloud.
      */
-    private static void initializeSpeaker(Context context, final String message)
+    public static void initializeSpeaker(Context context)
     {
         speaker = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status)
             {
 
-                // find the male Great Britain voice
-                for(Voice voice : speaker.getVoices())
-                {
-                    if(voice.getName().equals("en-gb-x-fis#male_1-local"))
-                    {
-                        speaker.setVoice(voice);
-                    }
-                }
-
-                speaker.speak(message, TextToSpeech.QUEUE_FLUSH, null, SPEAKER_ID);
+                speakerInitialized = true;
+                setSpeakerVoice("en-gb-x-fis#male_1-local");
             }
         });
 
-        speaker.setSpeechRate(.95f);
+    }
 
+    /***
+     * Sets the speaker voice to specified name. If name cannot be found,
+     * the default voice will be used. This method then sets the speech rate
+     * of the voice to slow down the default speed.
+     */
+    private static void setSpeakerVoice(String voiceName)
+    {
+        // find the male Great Britain voice
+        for(Voice voice : speaker.getVoices())
+        {
+            if(voice.getName().equals(voiceName))
+            {
+                speaker.setVoice(voice);
+            }
+        }
+
+        // set speech rate a tad slower
+        speaker.setSpeechRate(.95f);
     }
 }
