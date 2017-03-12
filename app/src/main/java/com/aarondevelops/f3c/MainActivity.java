@@ -19,6 +19,7 @@ import charge_points.ChargePoint;
 import charge_points.ChargerStation;
 import utils.HttpHelper;
 import utils.NetworkHelper;
+import utils.ToastHelper;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
 
         /***
          * Gets an updated charge station list. If an error occurs while trying to poll the
-         * database, an empty list will be returned.
+         * database, an empty list will be returned and a toast will display.
          *
          * @return - A list of all the stations found, or an empty list if an error occurred or no
          * stations were found.
@@ -109,9 +110,7 @@ public class MainActivity extends AppCompatActivity
 
             } catch (IOException e)
             {
-                Toast errorToast = Toast.makeText(
-                        getApplicationContext(), "Error Connecting to Database.", Toast.LENGTH_SHORT);
-                errorToast.show();
+                ToastHelper.toastAlert(getApplicationContext(), "Error Connecting to Database.");
 
                 // clear the list just in case of partial success
                 newList.clear();
@@ -147,11 +146,7 @@ public class MainActivity extends AppCompatActivity
         // If there isn't a network available, toast error.
         if( ! NetworkHelper.hasNetworkAccess(this))
         {
-            Toast errorToast = Toast.makeText(
-                    this,
-                    "Check network connection and try again.",
-                    Toast.LENGTH_SHORT);
-            errorToast.show();
+            ToastHelper.toastAlert(this, "Check network connection and try again.");
         }
 
         new ChargeLocationLoader().execute();
@@ -178,5 +173,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }
