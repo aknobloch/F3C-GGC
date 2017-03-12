@@ -10,7 +10,8 @@ import android.widget.Toast;
 public class ToastHelper
 {
     /***
-     * Creates a toast with the given message and displays it in the MainActivity context
+     * Creates a toast with the given message and displays it in the context
+     * @param context - The context to display the message
      * @param message - The message to toast.
      */
     public static void toastAlert(Context context, String message)
