@@ -27,6 +27,7 @@ import utils.MessageHelper;
 
 public class MainActivity extends AppCompatActivity
 {
+    //TODO: Curious how Lutz will test functionality
 
     public static final String DEBUG_TAG = "F3CDebug";
 
@@ -66,6 +67,73 @@ public class MainActivity extends AppCompatActivity
 
         // do first fetch
         fetchData();
+    }
+
+    /***
+     * Fetches data from the server. If network access cannot be established, displays a
+     * toast alerting the user and then returns.
+     */
+    public void fetchData()
+    {
+        // If there isn't a network available, toast error.
+        if( ! NetworkHelper.hasNetworkAccess(this))
+        {
+            MessageHelper.toastAlert(this, "Check network connection and try again.");
+            return;
+        }
+
+        new ChargeLocationLoader().execute();
+    }
+
+    /***
+     * Sets the list action for the listview
+     */
+    private void defineListAction()
+    {
+        chargerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                ChargerStation stationSelected = chargerStations.get(position);
+                outputInformation(view, stationSelected);
+            }
+
+            private void outputInformation(View view, ChargerStation stationSelected)
+            {
+                String longMessage = "There are " + stationSelected.getAvailabilityNumber() +
+                        " stations available at the " + stationSelected.getNickname() +
+                        " location. You can find this charger " + stationSelected.getDescription();
+
+                String shortMessage = stationSelected.getAvailabilityNumber() + " available. " +
+                        stationSelected.getDescription();
+
+                MessageHelper.snackbarAlert(view, shortMessage);
+                MessageHelper.speakMessage(getApplicationContext(), longMessage);
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /***
@@ -154,72 +222,4 @@ public class MainActivity extends AppCompatActivity
             listAdapter.notifyDataSetChanged();
         }
     }
-
-    /***
-     * Fetches data from the server. If network access cannot be established, displays a
-     * toast alerting the user and then returns.
-     */
-    public void fetchData()
-    {
-        // If there isn't a network available, toast error.
-        if( ! NetworkHelper.hasNetworkAccess(this))
-        {
-            MessageHelper.toastAlert(this, "Check network connection and try again.");
-            return;
-        }
-
-        new ChargeLocationLoader().execute();
-    }
-
-    /***
-     * Sets the list action for the listview
-     */
-    private void defineListAction()
-    {
-        chargerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                ChargerStation stationSelected = chargerStations.get(position);
-                outputInformation(view, stationSelected);
-            }
-
-            private void outputInformation(View view, ChargerStation stationSelected)
-            {
-                String longMessage = "There are " + stationSelected.getAvailabilityNumber() +
-                        " stations available at the " + stationSelected.getNickname() +
-                        " location. You can find this charger " + stationSelected.getDescription();
-
-                String shortMessage = stationSelected.getAvailabilityNumber() + " available. " +
-                        stationSelected.getDescription();
-
-                MessageHelper.snackbarAlert(view, shortMessage);
-                MessageHelper.speakMessage(getApplicationContext(), longMessage);
-            }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 }
