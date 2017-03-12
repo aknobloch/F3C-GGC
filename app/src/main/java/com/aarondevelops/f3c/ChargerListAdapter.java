@@ -12,10 +12,11 @@ import java.util.List;
 
 import charge_points.ChargerStation;
 
-/**
- * Created by Aaron K on 3/11/2017.
- */
 
+/***
+ * The ChargerListAdapter defines the formatting and handles the display
+ * of information for the bound ListView.
+ */
 public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
 {
 
@@ -40,6 +41,14 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
     }
 
     // TODO: Can I specify that this View param must be an instance of my custom layout?
+
+    /***
+     * Initializes the custom view with the appopriate values
+     * @param rootView - The root view to be modified
+     * @param station - The ChargerStation for which the view should display
+     * @return - The rootView, with the appropriate fields modified to display the
+     * pertinent information
+     */
     private View initializeView(View rootView, ChargerStation station)
     {
         TextView nicknameLabel = (TextView) rootView.findViewById(R.id.nickname);
@@ -58,6 +67,12 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
         return rootView;
     }
 
+    /***
+     * Finds the int-represented color to display, based on the number of available chargers.
+     * @param context - The context of this application, to determine the color.
+     * @param numberAvailable - The number of available chargers for this station.
+     * @return - An integer representation of the color to display for this station.
+     */
     private int getAvailabilityColor(Activity context, int numberAvailable)
     {
         if(numberAvailable > 0)
