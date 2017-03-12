@@ -17,17 +17,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import charge_points.ChargePoint;
+import charge_points.ChargerStation;
 import utils.HttpHelper;
 import utils.NetworkHelper;
 
 public class MainActivity extends AppCompatActivity
 {
 
-    static final String DEBUG_TAG = "F3CDebug";
+    public static final String DEBUG_TAG = "F3CDebug";
 
     ListView chargerList;
     ChargerListAdapter listAdapter;
-    ArrayList<ChargePoint> chargerLocations = new ArrayList<>();
+    ArrayList<ChargerStation> chargerLocations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,7 +77,8 @@ public class MainActivity extends AppCompatActivity
                 {
                     String response = HttpHelper.downloadUrl(stationString);
                     ChargePoint stationPoint = parser.fromJson(response, ChargePoint.class);
-                    chargerLocations.add(stationPoint);
+                    ChargerStation station = new ChargerStation(stationPoint);
+                    chargerLocations.add(station);
                 }
 
             } catch (IOException e)
@@ -91,7 +93,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void result)
         {
-            Log.d(DEBUG_TAG, "Done polling. Size: " + chargerLocations.size());
             listAdapter.notifyDataSetChanged();
         }
     }
