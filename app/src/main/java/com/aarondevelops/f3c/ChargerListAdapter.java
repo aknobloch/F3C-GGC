@@ -41,7 +41,6 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
     }
 
     // TODO: Can I specify that this View param must be an instance of my custom layout?
-
     /***
      * Initializes the custom view with the appopriate values
      * @param rootView - The root view to be modified

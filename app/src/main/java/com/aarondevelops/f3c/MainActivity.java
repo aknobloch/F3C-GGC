@@ -63,11 +63,12 @@ public class MainActivity extends AppCompatActivity
     {
 
         // the URL stations to poll for information
+        // TODO: Why do I not have to handle redirects?
         String[] stationURLs = {
-                "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9820,\"ne_lon\":-84.0031,\"sw_lat\":33.9811,\"sw_lon\":-84.0048}}",
-                "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9805,\"ne_lon\":-84.0063,\"sw_lat\":33.9795,\"sw_lon\":-84.0080}}",
-                "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9819,\"ne_lon\":-83.9991,\"sw_lat\":33.9809,\"sw_lon\":-84.0008}}",
-                "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9779,\"ne_lon\":-84.0018,\"sw_lat\":33.9770,\"sw_lon\":-84.0035}}"
+                "https://goo.gl/lp9Cpq",
+                "https://goo.gl/mFQA6z",
+                "https://goo.gl/xLHbtZ",
+                "https://goo.gl/81r365"
         };
 
         /***
