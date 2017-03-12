@@ -2,13 +2,15 @@ package com.aarondevelops.f3c;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -19,7 +21,7 @@ import charge_points.ChargePoint;
 import charge_points.ChargerStation;
 import utils.HttpHelper;
 import utils.NetworkHelper;
-import utils.ToastHelper;
+import utils.MessageHelper;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity
                 R.id.nickname, chargerStations);
 
         chargerList.setAdapter(listAdapter);
+
+        // creates listener for the list
+        defineListAction();
 
     }
 
@@ -110,7 +115,7 @@ public class MainActivity extends AppCompatActivity
 
             } catch (IOException e)
             {
-                ToastHelper.toastAlert(getApplicationContext(), "Error Connecting to Database.");
+                MessageHelper.toastAlert(getApplicationContext(), "Error Connecting to Database.");
 
                 // clear the list just in case of partial success
                 newList.clear();
@@ -150,11 +155,37 @@ public class MainActivity extends AppCompatActivity
         // If there isn't a network available, toast error.
         if( ! NetworkHelper.hasNetworkAccess(this))
         {
-            ToastHelper.toastAlert(this, "Check network connection and try again.");
+            MessageHelper.toastAlert(this, "Check network connection and try again.");
             return;
         }
 
         new ChargeLocationLoader().execute();
+    }
+
+    /***
+     * Sets the list action for the listview
+     */
+    private void defineListAction()
+    {
+        chargerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                ChargerStation stationSelected = chargerStations.get(position);
+
+                String longMessage = "There are " + stationSelected.getAvailabilityNumber() +
+                        " stations available at the " + stationSelected.getNickname() +
+                        " location. You can find this charger " + stationSelected.getDescription();
+
+                String shortMessage = stationSelected.getAvailabilityNumber() + " available. " +
+                        stationSelected.getDescription();
+
+                MessageHelper.snackbarAlert(view, shortMessage);
+                MessageHelper.speakMessage(getApplicationContext(), longMessage);
+
+            }
+        });
     }
 
     @Override
@@ -178,7 +209,5 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 }
