@@ -19,9 +19,15 @@ public class ChargerStation
     private String timeAccessed;
     private String description;
 
+    /***
+     * Creates a ChargerStation to represent the relevant information for
+     * the given ChargePoint.
+     * @param point - The point that should be encapsulated by this ChargerStation
+     */
     public ChargerStation(ChargePoint point)
     {
         this.rootPoint = point;
+
         setLocationNickname();
         setStationAvailability();
         setLocation();
@@ -38,11 +44,18 @@ public class ChargerStation
         return timeAccessed;
     }
 
+    /***
+     * The numerical availability of cars at this location.
+     */
     public int getAvailabilityNumber() {
         return availability;
     }
 
-    public String getAvailabilityLabel()
+    /***
+     * The literal representation of this availability, in the format
+     * of "<Number Available> Available"
+     */
+    public String getAvailabilityString()
     {
         return availability + " Available";
     }
@@ -55,12 +68,21 @@ public class ChargerStation
         return nickname;
     }
 
+    /***
+     * Sets the description by traversing through the ChargePoint associated
+     * with this ChargerStation
+     */
     private void setDescription()
     {
         Summary stationSummary = rootPoint.getStationList().getSummaries().get(0);
         this.description = stationSummary.getDescription();
     }
 
+    /***
+     * Sets the location by traversing through the first Summary associated
+     * with the root ChargePoint and concatenating all of the names into a single
+     * String, seperated by forward slashes.
+     */
     private void setLocation()
     {
         StationList stationList = rootPoint.getStationList();
@@ -69,16 +91,20 @@ public class ChargerStation
         Summary chargingPoint = allChargingPoints.get(0);
         List<String> names = chargingPoint.getStationName();
 
-        String concatonatedNames = names.get(0);
+        String concatenatedNames = names.get(0);
 
         for(int i = 1; i < names.size(); i++)
         {
-            concatonatedNames += (" / " + names.get(i));
+            concatenatedNames += (" / " + names.get(i));
         }
 
-        this.locationFormatted = concatonatedNames;
+        this.locationFormatted = concatenatedNames;
     }
 
+    /***
+     * Sets the location nickname by analyzing the device number associated with
+     * the root ChargePoint and assigning a human-readable nickname.
+     */
     private void setLocationNickname()
     {
         long  deviceNumber = rootPoint.getStationList().getSummaries().get(0).getDeviceId();
@@ -105,6 +131,10 @@ public class ChargerStation
         }
     }
 
+    /***
+     * Sets the availability by finding all of the available stations associated
+     * with the root ChargePoint object.
+     */
     private void setStationAvailability()
     {
         StationList stationList = rootPoint.getStationList();

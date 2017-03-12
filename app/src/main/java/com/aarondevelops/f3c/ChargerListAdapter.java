@@ -2,7 +2,6 @@ package com.aarondevelops.f3c;
 
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import charge_points.ChargePoint;
 import charge_points.ChargerStation;
 
 /**
@@ -50,7 +48,7 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
         TextView timestampLabel = (TextView) rootView.findViewById(R.id.timestamp);
 
         nicknameLabel.setText(station.getNickname());
-        availabilityLabel.setText(station.getAvailabilityLabel());
+        availabilityLabel.setText(station.getAvailabilityString());
         locationLabel.setText(station.getLocationFormatted());
         timestampLabel.setText(station.getTimeAccessed());
 
