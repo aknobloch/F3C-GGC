@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity
 
     ListView chargerList;
     ChargerListAdapter listAdapter;
-    ArrayList<ChargerStation> chargerLocations = new ArrayList<>();
+    ArrayList<ChargerStation> chargerStations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,39 +45,51 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        // creates and initializes the adapter for the listview
         chargerList = (ListView) findViewById(R.id.displayList);
         listAdapter = new ChargerListAdapter(this, R.layout.list_display_layout,
-                R.id.nickname, chargerLocations);
+                R.id.nickname, chargerStations);
 
         chargerList.setAdapter(listAdapter);
 
     }
 
+    /***
+     * An extension of AsyncTask to poll the ChargePoint.com server and fetch the available
+     * stations on the GGC campus. After fetching, the ChargeLocationLoader will initialize
+     * the chargerStations list with the stations found.
+     */
     class ChargeLocationLoader extends AsyncTask<Void, Void, Void>
     {
 
-        String[] stations = {
+        // the URL stations to poll for information
+        String[] stationURLs = {
                 "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9820,\"ne_lon\":-84.0031,\"sw_lat\":33.9811,\"sw_lon\":-84.0048}}",
                 "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9805,\"ne_lon\":-84.0063,\"sw_lat\":33.9795,\"sw_lon\":-84.0080}}",
                 "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9819,\"ne_lon\":-83.9991,\"sw_lat\":33.9809,\"sw_lon\":-84.0008}}",
                 "https://mc.chargepoint.com/map-prod/get?{\"station_list\":{\"ne_lat\":33.9779,\"ne_lon\":-84.0018,\"sw_lat\":33.9770,\"sw_lon\":-84.0035}}"
         };
 
+        /***
+         * First clears the current chargerStations. Then, iterates through the stationURLs field,
+         * polling each one and parsing the JSON response into POJOs. Using this object,
+         * it then creates a ChargerStation and adds them to the MainActivity chargerStations.
+         */
         @Override
         protected Void doInBackground(Void... params) {
 
-            chargerLocations.clear();
+            chargerStations.clear();
 
             try
             {
                 Gson parser = new Gson();
 
-                for(String stationString : stations)
+                for(String stationURL : stationURLs)
                 {
-                    String response = HttpHelper.downloadUrl(stationString);
+                    String response = HttpHelper.downloadUrl(stationURL);
                     ChargePoint stationPoint = parser.fromJson(response, ChargePoint.class);
                     ChargerStation station = new ChargerStation(stationPoint);
-                    chargerLocations.add(station);
+                    chargerStations.add(station);
                 }
 
             } catch (IOException e)
