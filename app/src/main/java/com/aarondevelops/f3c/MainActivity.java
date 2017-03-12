@@ -141,12 +141,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /***
+     * Fetches data from the server. If network access cannot be established, displays a
+     * toast alerting the user and then returns.
+     */
     public void fetchData()
     {
         // If there isn't a network available, toast error.
         if( ! NetworkHelper.hasNetworkAccess(this))
         {
             ToastHelper.toastAlert(this, "Check network connection and try again.");
+            return;
         }
 
         new ChargeLocationLoader().execute();
