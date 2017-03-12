@@ -15,7 +15,7 @@ import java.util.List;
  * for a given ChargePoint. It contains a human-readable nickname and location
  * as well as other pertinent information for the charging station.
  */
-public class ChargerStation
+public class ChargerStation implements Comparable<ChargerStation>
 {
     private ChargePoint rootPoint;
     private String nickname;
@@ -158,5 +158,14 @@ public class ChargerStation
         }
 
         this.availability = available;
+    }
+
+    @Override
+    /***
+     * Sorts greatest to least based on the number of available chargers.
+     */
+    public int compareTo(ChargerStation otherStation)
+    {
+        return otherStation.getAvailabilityNumber() - this.getAvailabilityNumber();
     }
 }

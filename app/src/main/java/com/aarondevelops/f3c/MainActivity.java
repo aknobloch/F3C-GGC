@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import charge_points.ChargePoint;
 import charge_points.ChargerStation;
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity
             {
                 chargerStations.clear();
                 chargerStations.addAll(updatedList);
+                Collections.sort(chargerStations);
             }
 
             return null;
