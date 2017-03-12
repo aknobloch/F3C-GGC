@@ -173,7 +173,11 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 ChargerStation stationSelected = chargerStations.get(position);
+                outputInformation(view, stationSelected);
+            }
 
+            private void outputInformation(View view, ChargerStation stationSelected)
+            {
                 String longMessage = "There are " + stationSelected.getAvailabilityNumber() +
                         " stations available at the " + stationSelected.getNickname() +
                         " location. You can find this charger " + stationSelected.getDescription();
@@ -183,7 +187,6 @@ public class MainActivity extends AppCompatActivity
 
                 MessageHelper.snackbarAlert(view, shortMessage);
                 MessageHelper.speakMessage(getApplicationContext(), longMessage);
-
             }
         });
     }
