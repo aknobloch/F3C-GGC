@@ -12,17 +12,26 @@ import java.util.List;
 
 public class ChargerStation
 {
+    private ChargePoint rootPoint;
     private String nickname;
     private int availability;
     private String locationFormatted;
     private String timeAccessed;
+    private String description;
 
     public ChargerStation(ChargePoint point)
     {
-        setLocationNickname(point);
-        setStationAvailability(point);
-        setLocation(point);
+        this.rootPoint = point;
+        setLocationNickname();
+        setStationAvailability();
+        setLocation();
         this.timeAccessed = point.getStationList().getTime();
+        setDescription();
+    }
+
+    public ChargePoint getChargePoint()
+    {
+        return this.rootPoint;
     }
 
     public String getTimeAccessed() {
@@ -46,9 +55,15 @@ public class ChargerStation
         return nickname;
     }
 
-    private void setLocation(ChargePoint chargePoint)
+    private void setDescription()
     {
-        StationList stationList = chargePoint.getStationList();
+        Summary stationSummary = rootPoint.getStationList().getSummaries().get(0);
+        this.description = stationSummary.getDescription();
+    }
+
+    private void setLocation()
+    {
+        StationList stationList = rootPoint.getStationList();
         List<Summary> allChargingPoints = stationList.getSummaries();
 
         Summary chargingPoint = allChargingPoints.get(0);
@@ -64,9 +79,9 @@ public class ChargerStation
         this.locationFormatted = concatonatedNames;
     }
 
-    private void setLocationNickname(ChargePoint currentPoint)
+    private void setLocationNickname()
     {
-        long  deviceNumber = currentPoint.getStationList().getSummaries().get(0).getDeviceId();
+        long  deviceNumber = rootPoint.getStationList().getSummaries().get(0).getDeviceId();
 
         if(deviceNumber == 122167)
         {
@@ -90,9 +105,9 @@ public class ChargerStation
         }
     }
 
-    private void setStationAvailability(ChargePoint chargePoint)
+    private void setStationAvailability()
     {
-        StationList stationList = chargePoint.getStationList();
+        StationList stationList = rootPoint.getStationList();
         List<Summary> allChargingPoints = stationList.getSummaries();
 
         int available = 0;
