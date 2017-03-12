@@ -2,11 +2,17 @@ package utils;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.aarondevelops.f3c.MainActivity;
+
 import org.w3c.dom.Text;
+
+import java.util.Set;
 
 /**
  * Created by Aaron K on 3/12/2017.
@@ -71,8 +77,21 @@ public class MessageHelper
             @Override
             public void onInit(int status)
             {
+
+                // find the male Great Britain voice
+                for(Voice voice : speaker.getVoices())
+                {
+                    if(voice.getName().equals("en-gb-x-fis#male_1-local"))
+                    {
+                        speaker.setVoice(voice);
+                    }
+                }
+
                 speaker.speak(message, TextToSpeech.QUEUE_FLUSH, null, SPEAKER_ID);
             }
         });
+
+        speaker.setSpeechRate(.95f);
+
     }
 }
