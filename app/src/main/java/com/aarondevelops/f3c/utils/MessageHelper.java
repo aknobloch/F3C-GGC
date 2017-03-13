@@ -74,7 +74,7 @@ public class MessageHelper
                 }
 
                 speakerInitialized = true;
-                setSpeakerVoice("en-gb-x-fis#male_1-local");
+                setSpeakerVoiceAndSpeed("en-gb-x-fis#male_1-local");
             }
         });
 
@@ -85,7 +85,7 @@ public class MessageHelper
      * the default voice will be used. This method then sets the speech rate
      * of the voice to slow down the default speed.
      */
-    private static void setSpeakerVoice(String voiceName)
+    private static void setSpeakerVoiceAndSpeed(String voiceName)
     {
         try
         {
@@ -97,13 +97,15 @@ public class MessageHelper
                     speaker.setVoice(voice);
                 }
             }
-
-            // set speech rate a tad slower
-            speaker.setSpeechRate(.95f);
         }
         catch(NullPointerException npe)
         {
             Log.e("RuntimeError", "No voices found.");
+        }
+        finally
+        {
+            // set speech rate a tad slower
+            speaker.setSpeechRate(.95f);
         }
 
     }

@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         // creates listener for the list
         defineListAction();
 
+        // TODO: is this okay?
         // do first fetch
         fetchData();
     }
