@@ -21,6 +21,7 @@ public class MessageHelper
      * @param context - The context to display the message
      * @param message - The message to toast.
      */
+    // TODO: @Nonnull annotation, manual checks, other?
     public static void makeToast(Context context, String message)
     {
         Toast errorToast = Toast.makeText(
