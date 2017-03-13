@@ -1,5 +1,5 @@
 
-package charge_points;
+package com.aarondevelops.f3c.chargelocation;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -19,9 +19,6 @@ public class Summary {
     @SerializedName("station_status")
     @Expose
     private String stationStatus;
-    @SerializedName("map_data")
-    @Expose
-    private MapData mapData;
     @SerializedName("device_id")
     @Expose
     private long deviceId;
@@ -46,15 +43,9 @@ public class Summary {
     @SerializedName("bearing")
     @Expose
     private long bearing;
-    @SerializedName("port_type_count")
-    @Expose
-    private PortTypeCount portTypeCount;
     @SerializedName("station_name")
     @Expose
     private List<String> stationName = null;
-    @SerializedName("address")
-    @Expose
-    private Address address;
     @SerializedName("description")
     @Expose
     private String description;
@@ -95,14 +86,6 @@ public class Summary {
 
     public void setStationStatus(String stationStatus) {
         this.stationStatus = stationStatus;
-    }
-
-    public MapData getMapData() {
-        return mapData;
-    }
-
-    public void setMapData(MapData mapData) {
-        this.mapData = mapData;
     }
 
     public long getDeviceId() {
@@ -169,28 +152,12 @@ public class Summary {
         this.bearing = bearing;
     }
 
-    public PortTypeCount getPortTypeCount() {
-        return portTypeCount;
-    }
-
-    public void setPortTypeCount(PortTypeCount portTypeCount) {
-        this.portTypeCount = portTypeCount;
-    }
-
     public List<String> getStationName() {
         return stationName;
     }
 
     public void setStationName(List<String> stationName) {
         this.stationName = stationName;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public String getDescription() {

@@ -1,36 +1,31 @@
-package com.aarondevelops.f3c;
+package com.aarondevelops.f3c.activities;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.aarondevelops.f3c.R;
+import com.aarondevelops.f3c.chargelocation.ChargePoint;
+import com.aarondevelops.f3c.chargelocation.ChargerStation;
+import com.aarondevelops.f3c.utils.ChargerListAdapter;
+import com.aarondevelops.f3c.utils.HttpHelper;
+import com.aarondevelops.f3c.utils.MessageHelper;
+import com.aarondevelops.f3c.utils.NetworkHelper;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
-
-import charge_points.ChargePoint;
-import charge_points.ChargerStation;
-import utils.HttpHelper;
-import utils.NetworkHelper;
-import utils.MessageHelper;
 
 public class MainActivity extends AppCompatActivity
 {
-    //TODO: Curious how Lutz will test functionality
-
     public static final String DEBUG_TAG = "F3CDebug";
 
     private ListView chargerList;

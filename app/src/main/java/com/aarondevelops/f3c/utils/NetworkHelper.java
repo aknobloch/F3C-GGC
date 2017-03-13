@@ -1,4 +1,4 @@
-package utils;
+package com.aarondevelops.f3c.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

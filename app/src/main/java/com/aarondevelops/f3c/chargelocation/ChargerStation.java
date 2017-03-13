@@ -1,8 +1,4 @@
-package charge_points;
-
-import android.util.Log;
-
-import com.aarondevelops.f3c.MainActivity;
+package com.aarondevelops.f3c.chargelocation;
 
 import java.util.List;
 

@@ -1,23 +1,13 @@
-package utils;
+package com.aarondevelops.f3c.utils;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
 import android.support.design.widget.Snackbar;
-import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aarondevelops.f3c.MainActivity;
-
-import org.w3c.dom.Text;
-
-import java.util.Set;
-
-/**
- * Created by Aaron K on 3/12/2017.
- */
 
 public class MessageHelper
 {

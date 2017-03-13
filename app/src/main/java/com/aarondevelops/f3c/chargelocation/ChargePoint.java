@@ -1,5 +1,5 @@
 
-package charge_points;
+package com.aarondevelops.f3c.chargelocation;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

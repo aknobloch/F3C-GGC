@@ -1,4 +1,4 @@
-package com.aarondevelops.f3c;
+package com.aarondevelops.f3c.utils;
 
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.List;
+import com.aarondevelops.f3c.R;
+import com.aarondevelops.f3c.chargelocation.ChargerStation;
 
-import charge_points.ChargerStation;
+import java.util.List;
 
 
 /***

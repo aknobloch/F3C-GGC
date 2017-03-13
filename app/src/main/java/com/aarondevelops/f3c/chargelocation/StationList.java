@@ -1,5 +1,5 @@
 
-package charge_points;
+package com.aarondevelops.f3c.chargelocation;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -19,12 +19,6 @@ public class StationList {
     @SerializedName("summaries")
     @Expose
     private List<Summary> summaries = null;
-    @SerializedName("port_type_info")
-    @Expose
-    private PortTypeInfo portTypeInfo;
-    @SerializedName("port_type_text_map")
-    @Expose
-    private PortTypeTextMap portTypeTextMap;
     @SerializedName("page_offset")
     @Expose
     private String pageOffset;
@@ -59,22 +53,6 @@ public class StationList {
 
     public void setSummaries(List<Summary> summaries) {
         this.summaries = summaries;
-    }
-
-    public PortTypeInfo getPortTypeInfo() {
-        return portTypeInfo;
-    }
-
-    public void setPortTypeInfo(PortTypeInfo portTypeInfo) {
-        this.portTypeInfo = portTypeInfo;
-    }
-
-    public PortTypeTextMap getPortTypeTextMap() {
-        return portTypeTextMap;
-    }
-
-    public void setPortTypeTextMap(PortTypeTextMap portTypeTextMap) {
-        this.portTypeTextMap = portTypeTextMap;
     }
 
     public String getPageOffset() {
