@@ -21,7 +21,7 @@ public class MessageHelper
      * @param context - The context to display the message
      * @param message - The message to toast.
      */
-    public static void toastAlert(Context context, String message)
+    public static void makeToast(Context context, String message)
     {
         Toast errorToast = Toast.makeText(
                 context,
@@ -36,7 +36,7 @@ public class MessageHelper
      * @param view - The view to display the message
      * @param message - The message to toast.
      */
-    public static void snackbarAlert(View view, String message)
+    public static void makeSnackbar(View view, String message)
     {
         Snackbar displayMessage = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         displayMessage.show();
@@ -47,11 +47,11 @@ public class MessageHelper
      * @param context - The context this method was called from.
      * @param message - The message to read aloud.
      */
-    public static void speakMessage(Context context, String message)
+    public static void makeSpeech(Context context, String message)
     {
         if( ! speakerInitialized)
         {
-            toastAlert(context, "Speaker not ready, information will be spoken shortly...");
+            makeToast(context, "Speaker not ready, information will be spoken shortly...");
             initializeSpeaker(context, message);
             return;
         }
@@ -99,7 +99,7 @@ public class MessageHelper
 
                 speakerInitialized = true;
                 setSpeakerVoiceAndSpeed("en-gb-x-fis#male_1-local");
-                speakMessage(context, message);
+                makeSpeech(context, message);
             }
         });
     }

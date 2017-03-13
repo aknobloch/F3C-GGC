@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         // If there isn't a network available, toast error.
         if( ! NetworkHelper.hasNetworkAccess(this))
         {
-            MessageHelper.toastAlert(this, "Check network connection and try again.");
+            MessageHelper.makeToast(this, "Check network connection and try again.");
             return;
         }
 
@@ -110,8 +110,8 @@ public class MainActivity extends AppCompatActivity
                 String shortMessage = stationSelected.getAvailabilityNumber() + " available. " +
                         stationSelected.getDescription();
 
-                MessageHelper.snackbarAlert(view, shortMessage);
-                MessageHelper.speakMessage(getApplicationContext(), longMessage);
+                MessageHelper.makeSnackbar(view, shortMessage);
+                MessageHelper.makeSpeech(getApplicationContext(), longMessage);
             }
         });
     }
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-            MessageHelper.snackbarAlert(getCurrentFocus(), "Made for ITEC 4550 by Aaron K on March 12, 2017");
+            MessageHelper.makeSnackbar(getCurrentFocus(), "Made for ITEC 4550 by Aaron K on March 12, 2017");
 
             return true;
         }
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity
 
             } catch (IOException e)
             {
-                MessageHelper.toastAlert(getApplicationContext(), "Error Connecting to Database.");
+                MessageHelper.makeToast(getApplicationContext(), "Error Connecting to Database.");
 
                 // clear the list just in case of partial success
                 newList.clear();
