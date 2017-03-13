@@ -113,7 +113,7 @@ public class MessageHelper
         }
         catch(NullPointerException npe)
         {
-            Log.e("RuntimeError", "No Voices Found.");
+            Log.e("RuntimeError", "No voices found.");
         }
 
     }
