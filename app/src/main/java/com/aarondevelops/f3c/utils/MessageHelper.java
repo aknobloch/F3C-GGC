@@ -51,7 +51,8 @@ public class MessageHelper
     {
         if( ! speakerInitialized)
         {
-            toastAlert(context, "Speaker not ready.");
+            toastAlert(context, "Speaker not ready, information will be spoken shortly...");
+            initializeSpeaker(context, message);
             return;
         }
 
@@ -78,6 +79,29 @@ public class MessageHelper
             }
         });
 
+    }
+
+    /***
+     * Initializes the speaker with an optional argument to pass a message along.
+     * @param context - The context this method was called from.
+     * @param message - The message to read once the speaker is successfully initialized.
+     */
+    private static void initializeSpeaker(final Context context, final String message)
+    {
+        speaker = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status)
+            {
+                if(status == TextToSpeech.ERROR)
+                {
+                    return;
+                }
+
+                speakerInitialized = true;
+                setSpeakerVoiceAndSpeed("en-gb-x-fis#male_1-local");
+                speakMessage(context, message);
+            }
+        });
     }
 
     /***
