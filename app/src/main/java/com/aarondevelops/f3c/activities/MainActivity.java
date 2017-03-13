@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// TODO: Package name and conventions?
 public class MainActivity extends AppCompatActivity
 {
     public static final String DEBUG_TAG = "F3CDebug";
