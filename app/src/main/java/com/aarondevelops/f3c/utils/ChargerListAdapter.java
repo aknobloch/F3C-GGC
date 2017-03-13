@@ -43,7 +43,7 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
 
     // TODO: Can I specify that this View param must be an instance of my custom layout?
     /***
-     * Initializes the custom view with the appopriate values
+     * Initializes the custom view with the appropriate values
      * @param rootView - The root view to be modified
      * @param station - The ChargerStation for which the view should display
      * @return - The rootView, with the appropriate fields modified to display the
@@ -84,9 +84,4 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
             return ContextCompat.getColor(context, android.R.color.black);
         }
     }
-
-
-
-
-
 }
