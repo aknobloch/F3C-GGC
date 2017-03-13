@@ -4,6 +4,7 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
 import android.support.design.widget.Snackbar;
+import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -77,6 +78,10 @@ public class MessageHelper
             @Override
             public void onInit(int status)
             {
+                if(status == TextToSpeech.ERROR)
+                {
+                    return;
+                }
 
                 speakerInitialized = true;
                 setSpeakerVoice("en-gb-x-fis#male_1-local");
@@ -92,16 +97,24 @@ public class MessageHelper
      */
     private static void setSpeakerVoice(String voiceName)
     {
-        // find the male Great Britain voice
-        for(Voice voice : speaker.getVoices())
+        try
         {
-            if(voice.getName().equals(voiceName))
+            // find the male Great Britain voice
+            for(Voice voice : speaker.getVoices())
             {
-                speaker.setVoice(voice);
+                if(voice.getName().equals(voiceName))
+                {
+                    speaker.setVoice(voice);
+                }
             }
+
+            // set speech rate a tad slower
+            speaker.setSpeechRate(.95f);
+        }
+        catch(NullPointerException npe)
+        {
+            Log.e("RuntimeError", "No Voices Found.");
         }
 
-        // set speech rate a tad slower
-        speaker.setSpeechRate(.95f);
     }
 }

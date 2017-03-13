@@ -6,6 +6,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,15 +32,18 @@ public class MainActivity extends AppCompatActivity
 
     public static final String DEBUG_TAG = "F3CDebug";
 
-    ListView chargerList;
-    ChargerListAdapter listAdapter;
-    ArrayList<ChargerStation> chargerStations = new ArrayList<>();
+    private ListView chargerList;
+    private ChargerListAdapter listAdapter;
+    private ArrayList<ChargerStation> chargerStations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // prepare the speaker for the list
         MessageHelper.initializeSpeaker(this);
