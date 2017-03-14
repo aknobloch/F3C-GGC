@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.aarondevelops.f3c.R;
 import com.aarondevelops.f3c.chargelocation.ChargerStation;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,12 +24,18 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
 {
 
     private final Activity context;
-    private List<ChargerStation> objects;
+    private ArrayList<ChargerStation> objects;
 
 
-    public ChargerListAdapter(Activity context, int resource, int viewID, List<ChargerStation> objects) {
+    // TODO: Can I specify that this View param must be an instance of my custom layout?
+    public ChargerListAdapter(Activity context, int resource, int viewID, ArrayList<ChargerStation> objects) {
 
         super(context, resource, viewID, objects);
+
+        if(resource != R.layout.list_display_layout)
+        {
+            throw new IllegalArgumentException();
+        }
         this.context = context;
         this.objects = objects;
     }
@@ -41,7 +49,6 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
         return initializeView(layoutView, objects.get(position));
     }
 
-    // TODO: Can I specify that this View param must be an instance of my custom layout?
     /***
      * Initializes the custom view with the appropriate values
      * @param rootView - The root view to be modified
