@@ -28,14 +28,10 @@ public class ChargerListAdapter extends ArrayAdapter<ChargerStation>
 
 
     // TODO: Can I specify that this View param must be an instance of my custom layout?
-    public ChargerListAdapter(Activity context, int resource, int viewID, ArrayList<ChargerStation> objects) {
+    public ChargerListAdapter(Activity context, ArrayList<ChargerStation> objects) {
 
-        super(context, resource, viewID, objects);
+        super(context, R.layout.list_display_layout, R.id.nickname, objects);
 
-        if(resource != R.layout.list_display_layout)
-        {
-            throw new IllegalArgumentException();
-        }
         this.context = context;
         this.objects = objects;
     }

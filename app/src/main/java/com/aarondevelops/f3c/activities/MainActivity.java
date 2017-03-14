@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity
 
         // creates and initializes the adapter for the listview
         chargerList = (ListView) findViewById(R.id.displayList);
-        listAdapter = new ChargerListAdapter(this, R.layout.list_display_layout,
-                R.id.nickname, chargerStations);
-
+        listAdapter = new ChargerListAdapter(this, chargerStations);
         chargerList.setAdapter(listAdapter);
 
         // creates listener for the list
