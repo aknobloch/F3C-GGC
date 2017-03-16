@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// TODO: Package name and conventions?
 public class MainActivity extends AppCompatActivity
 {
     public static final String DEBUG_TAG = "F3CDebug";
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity
         // creates listener for the list
         defineListAction();
 
-        // TODO: is this okay?
         // do first fetch
         fetchData();
     }
@@ -128,7 +126,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
             MessageHelper.makeSnackbar(getCurrentFocus(), "Made for ITEC 4550 by Aaron K on March 12, 2017");

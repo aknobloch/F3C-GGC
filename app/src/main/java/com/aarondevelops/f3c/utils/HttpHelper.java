@@ -1,5 +1,9 @@
 package com.aarondevelops.f3c.utils;
 
+import android.util.Log;
+
+import com.aarondevelops.f3c.activities.MainActivity;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
