@@ -145,7 +145,9 @@ public class MainActivity extends AppCompatActivity
     {
 
         // the URL stations to poll for information
-        // TODO: Why do I not have to handle redirects?
+        // TODO: Why do I not have to handle redirects? Using a different URL shortener
+        // service causes a 300 level redirect code to be returned. But the google URL
+        // shortener instead just directly returns a 200-level code with the contents.
         String[] stationURLs = {
                 "https://goo.gl/lp9Cpq",
                 "https://goo.gl/mFQA6z",
